@@ -37,6 +37,9 @@ Total profit = 4 + 8 = 12.
 
 """
 
+from operator import indexOf
+
+
 class Solution:
     def stonks(self, prices):
             #type prices: list of int
@@ -47,12 +50,17 @@ class Solution:
                 if prices[i] > prices[i+1]:
                     testcase.append(prices[newIndex:i])
                     newIndex = i + 1
-            profits = 0
+            profits = []
             for i in range(len(testcase)):
-                profits += max(testcase[i]) - min(testcase[i])
+                profits.append(max(testcase[i]) - min(testcase[i]))
+
+            max1 = max(profits)
+            profits.pop(indexOf(max(profits)))
+            max2 = max(profits)
+            return max1 + max2
             
-            return profits
                 
+
             #TODO: Write code below to returnn an int with the solution to the prompt.
             pass
 
