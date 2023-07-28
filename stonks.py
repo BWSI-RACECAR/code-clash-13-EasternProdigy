@@ -43,7 +43,7 @@ class Solution:
             #return type: int
             testcase = []
             newIndex = 0
-            for i in range(len(prices)):
+            for i in range(len(prices)-1):
                 if prices[i] > prices[i+1]:
                     testcase.append(prices[newIndex:i])
                     newIndex = i + 1
