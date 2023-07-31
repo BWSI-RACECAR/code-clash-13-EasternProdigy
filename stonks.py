@@ -36,34 +36,40 @@ Then, buy during hour 6 (price = 0), sell during hour 8 (price = 8), net profit 
 Total profit = 4 + 8 = 12.
 
 """
-
-from operator import indexOf
-
+import time
+import random
 
 class Solution:
     def stonks(self, prices):
-            #type prices: list of int
-            #return type: int
-            testcase = []
-            newIndex = 0
-            for i in range(len(prices)-1):
-                if prices[i] > prices[i+1]:
-                    testcase.append(prices[newIndex:i])
-                    newIndex = i + 1
-            profits = []
-            for i in range(len(testcase)):
-                profits.append(max(testcase[i]) - min(testcase[i]))
+        #type prices: list of int
+        #return type: int
+        min_price_1 = 100000
+        profit_1 = []
+        max_profit_1 = 0
 
-            max1 = max(profits)
-            profits.pop(indexOf(max(profits)))
-            max2 = max(profits)
-            return max1 + max2
-            
-                
-
-            #TODO: Write code below to returnn an int with the solution to the prompt.
-            pass
-
+        for x in prices:
+            if min_price_1 > x:
+                min_price_1 = x
+            else:
+                max_profit_1 = max(max_profit_1, x - min_price_1)
+            profit_1.append(max_profit_1)
+        
+        max_price_2 = 0
+        profit_2 = [0] * len(prices)
+        max_profit_2 = 0
+        for i in range(len(prices) -1, -1, -1):
+            x = prices[i]
+            if x > max_price_2:
+                max_price_2 = x
+            else:
+                max_profit_2 = max(max_profit_2, max_price_2 - x)
+            profit_2[i] = max_profit_2
+        max_profit = 0
+        for i in range(len(prices)):
+            sum_profit = profit_1[i] + profit_2[i]
+            if sum_profit > max_profit:
+                max_profit = sum_profit
+        return max_profit
 def main():
     array = input().split(" ")
     for x in range (0, len(array)):
